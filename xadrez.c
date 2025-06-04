@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 // Desafio de Xadrez - MateCheck
+// Simulação da movimentação de Torre, Bispo, Rainha e Cavalo usando estruturas de repetição
 
 int main() {
     // Constantes para o número de casas de movimento de cada peça
@@ -38,6 +39,33 @@ int main() {
         printf("Esquerda\n");
         k++;
     } while (k <= casas_rainha);
+
+    // -------------------------------
+    // Movimentação do Cavalo (FOR + WHILE)
+    // -------------------------------
+    // O Cavalo se move em "L": duas casas em uma direção e uma casa perpendicular.
+    // Aqui, simulamos o movimento: duas casas para baixo e uma para a esquerda.
+    // Usamos loops aninhados: um for para o número de movimentos do Cavalo
+    // e um while para detalhar cada etapa do movimento em "L".
+    const int movimentos_cavalo = 1; // Quantas vezes queremos simular o movimento em "L"
+    const int casas_baixo = 2;
+    const int casas_esquerda = 1;
+
+    printf("\nMovimentação do Cavalo:\n");
+    for (int m = 1; m <= movimentos_cavalo; m++) {
+        int passo = 1;
+        // Primeiro, duas casas para baixo
+        while (passo <= casas_baixo) {
+            printf("Baixo\n");
+            passo++;
+        }
+        // Depois, uma casa para a esquerda
+        int n = 1;
+        while (n <= casas_esquerda) {
+            printf("Esquerda\n");
+            n++;
+        }
+    }
 
     return 0;
 }
