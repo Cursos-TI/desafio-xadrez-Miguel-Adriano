@@ -1,71 +1,110 @@
 #include <stdio.h>
 
-// Desafio de Xadrez - MateCheck
-// Simulação da movimentação de Torre, Bispo, Rainha e Cavalo usando estruturas de repetição
+/*
+    Desafio de Xadrez - MateCheck (Nível Mestre)
+    Simulação da movimentação de Torre, Bispo, Rainha e Cavalo usando recursividade e loops complexos.
+
+    - Torre, Bispo e Rainha: movimentos implementados com funções recursivas.
+    - Bispo: também possui versão com loops aninhados (vertical e horizontal).
+    - Cavalo: movimento em "L" (duas casas para cima e uma para a direita) usando loops aninhados e múltiplas condições.
+*/
+
+// Função recursiva para movimentação da Torre (direita)
+void moverTorreRecursivo(int casas) {
+    if (casas == 0) return;
+    printf("Direita\n");
+    moverTorreRecursivo(casas - 1);
+}
+
+// Função recursiva para movimentação da Rainha (esquerda)
+void moverRainhaRecursivo(int casas) {
+    if (casas == 0) return;
+    printf("Esquerda\n");
+    moverRainhaRecursivo(casas - 1);
+}
+
+// Função recursiva para movimentação do Bispo (diagonal: cima + direita)
+void moverBispoRecursivo(int casas) {
+    if (casas == 0) return;
+    printf("Cima\n");
+    printf("Direita\n");
+    moverBispoRecursivo(casas - 1);
+}
+
+// Função para movimentação do Bispo usando loops aninhados
+void moverBispoLoops(int casas_vertical, int casas_horizontal) {
+    // O loop externo representa o movimento vertical (cima)
+    for (int v = 1; v <= casas_vertical; v++) {
+        // O loop interno representa o movimento horizontal (direita)
+        for (int h = 1; h <= casas_horizontal; h++) {
+            printf("Cima\n");
+            printf("Direita\n");
+            // Como o bispo só anda uma casa na diagonal por vez, podemos usar break para sair após um movimento
+            break;
+        }
+    }
+}
+
+// Função para movimentação do Cavalo em "L" (duas casas para cima e uma para a direita)
+// Utiliza loops aninhados, múltiplas variáveis e condições, além de continue/break
+void moverCavaloL(int movimentos) {
+    // Cada movimento do cavalo é composto por duas casas para cima e uma para a direita
+    for (int m = 1; m <= movimentos; m++) {
+        int casas_cima = 2;
+        int casas_direita = 1;
+        int passo = 1;
+        // Loop para casas para cima
+        for (int i = 1; i <= casas_cima; i++) {
+            if (i == 2 && m % 2 == 0) {
+                // Exemplo de uso de continue: pula o segundo passo se o movimento for par (apenas para ilustrar)
+                continue;
+            }
+            printf("Cima\n");
+        }
+        // Loop para casas para a direita
+        for (int j = 1; j <= casas_direita; j++) {
+            if (j > 1) break; // Exemplo de uso de break: nunca executa mais de uma vez
+            printf("Direita\n");
+        }
+    }
+}
 
 int main() {
     // Constantes para o número de casas de movimento de cada peça
     const int casas_torre = 5;
     const int casas_bispo = 5;
     const int casas_rainha = 8;
+    const int movimentos_cavalo = 2; // Quantas vezes queremos simular o movimento em "L"
 
     // -------------------------------
-    // Movimentação da Torre (FOR)
+    // Movimentação da Torre (Recursivo)
     // -------------------------------
-    // A Torre se move em linha reta. Aqui, simulamos 5 casas para a direita.
     printf("Movimentação da Torre:\n");
-    for (int i = 1; i <= casas_torre; i++) {
-        printf("Direita\n");
-    }
+    moverTorreRecursivo(casas_torre);
 
     // -------------------------------
-    // Movimentação do Bispo (WHILE)
+    // Movimentação do Bispo (Recursivo)
     // -------------------------------
-    // O Bispo se move na diagonal. Aqui, simulamos 5 casas para cima e à direita.
-    printf("\nMovimentação do Bispo:\n");
-    int j = 1;
-    while (j <= casas_bispo) {
-        printf("Cima Direita\n");
-        j++;
-    }
+    printf("\nMovimentação do Bispo (Recursivo):\n");
+    moverBispoRecursivo(casas_bispo);
 
     // -------------------------------
-    // Movimentação da Rainha (DO-WHILE)
+    // Movimentação do Bispo (Loops Aninhados)
     // -------------------------------
-    // A Rainha se move em todas as direções. Aqui, simulamos 8 casas para a esquerda.
+    printf("\nMovimentação do Bispo (Loops Aninhados):\n");
+    moverBispoLoops(casas_bispo, 1);
+
+    // -------------------------------
+    // Movimentação da Rainha (Recursivo)
+    // -------------------------------
     printf("\nMovimentação da Rainha:\n");
-    int k = 1;
-    do {
-        printf("Esquerda\n");
-        k++;
-    } while (k <= casas_rainha);
+    moverRainhaRecursivo(casas_rainha);
 
     // -------------------------------
-    // Movimentação do Cavalo (FOR + WHILE)
+    // Movimentação do Cavalo (Loops Complexos)
     // -------------------------------
-    // O Cavalo se move em "L": duas casas em uma direção e uma casa perpendicular.
-    // Aqui, simulamos o movimento: duas casas para baixo e uma para a esquerda.
-    // Usamos loops aninhados: um for para o número de movimentos do Cavalo
-    // e um while para detalhar cada etapa do movimento em "L".
-    const int movimentos_cavalo = 1; // Quantas vezes queremos simular o movimento em "L"
-    const int casas_baixo = 2;
-    const int casas_esquerda = 1;
-
     printf("\nMovimentação do Cavalo:\n");
-    for (int m = 1; m <= movimentos_cavalo; m++) {
-        int passo = 1;
-        // Primeiro, duas casas para baixo
-        while (passo <= casas_baixo) {
-            printf("Baixo\n");
-            passo++;
-        }
-        // Depois, uma casa para a esquerda
-        int n = 1;
-        while (n <= casas_esquerda) {
-            printf("Esquerda\n");
-            n++;
-        }
-    }
+    moverCavaloL(movimentos_cavalo);
 
     return 0;
 }
